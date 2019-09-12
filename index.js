@@ -137,15 +137,9 @@ app.post('/ticketstatus', (req, res) =>
 		{
 		
             		var result = JSON.parse(response.body);
-		
-		
-		
 			assigned_to =  result.records[0].assigned_to;
-				//console.log(assigned_to);
 			number =  result.records[0].number;
-				//console.log(number);
 			state =  result.records[0].state;
-				//console.log(state);
 			sys_updated_by = result.records[0].sys_updated_by;
 			sys_updated_on = result.records[0].sys_updated_on;
 			short_description = result.records[0].short_description;
