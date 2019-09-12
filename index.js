@@ -151,10 +151,10 @@ app.post('/ticketstatus', (req, res) =>
 		{
 		
             var result = JSON.parse(response.body);
-		//console.log(result);
-		//console.log(response);
-			//---
-			assigned_to =  result.records[0].assigned_to;
+			if(result.records[0].length == 0)
+				speech = "Sorry given incident number does not exist. Please provide a valid number";
+			
+		assigned_to =  result.records[0].assigned_to;
 			//console.log(assigned_to);
 		number =  result.records[0].number;
 			//console.log(number);
