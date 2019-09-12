@@ -74,7 +74,7 @@ app.post('/raiseticket', (req, res) =>
 		var speech = "Thanks "+name+"! Incident Created Successfully for issue "+issue+" and your incident number is "+incident_no;
 		speech = speech+" Sys_id is "+sys_id+"\r\n";
 			
-		speech = speech+" Thanks for contacting us.
+		speech = speech+" Thanks for contacting us."
                       
 			console.log(result);
           
