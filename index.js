@@ -71,7 +71,7 @@ app.post('/raiseticket', (req, res) =>
             var result = JSON.parse(response.body);
             var count = Object.keys(result.results).length;
                       
-			console.log(response);
+			console.log(result);
           
 	    		 
 					
@@ -80,7 +80,7 @@ app.post('/raiseticket', (req, res) =>
 			
 			
 			//----------------------------------------------
-			var reply = [{
+			/*var reply = [{
 				type: 'text',
 				content: result
 				}];
@@ -108,7 +108,7 @@ app.post('/raiseticket', (req, res) =>
 							replies: reply
 							
 						});			
-		});
+		});*/
 			
 			
 });
