@@ -68,10 +68,10 @@ app.post('/raiseticket', (req, res) =>
 		}).then(function(response)
 		{
 		
-            var result = JSON.parse(response.body);
+          /*  var result = JSON.parse(response.body);
             var count = Object.keys(result.results).length;
                       
-			console.log(result);
+			console.log(response);*/
           
 	    		 
 					
