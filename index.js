@@ -151,8 +151,8 @@ app.post('/ticketstatus', (req, res) =>
 		{
 		
             var result = JSON.parse(response.body);
-		console.log(result);
-		console.log(response);
+		//console.log(result);
+		//console.log(response);
 			//---
 			assigned_to =  result.records[0].assigned_to;
 		number =  result.records[0].number;
@@ -162,10 +162,10 @@ app.post('/ticketstatus', (req, res) =>
 		short_description = result.records[0].short_description;
 		
 		
-		if(assigned_to=="")
+		/*if(assigned_to==" ")
 		{
 			assigned_to = "no one";
-		}
+		}*/
 		
 		switch(state){
 		    case 1:
@@ -197,7 +197,7 @@ app.post('/ticketstatus', (req, res) =>
 					replies: reply });
 		}, function(error) 
 		{
-						var errorMessage = "POST request failed";
+						var errorMessage = "GET request failed";
 						if(error.code && error.body) {
 							errorMessage += " - " + error.code + ": " + error.body
 						}
