@@ -14,7 +14,7 @@ const app = express()
 app.use(bodyParser.json()) 
 
 // Start server
-const PORT = process.env.PORT || 5000;
+const PORT = 5000;
 app.listen(PORT, () => console.log(`App is listening on port ${PORT}`));
 
 
