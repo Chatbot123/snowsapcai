@@ -5,7 +5,7 @@ const app = express()
 const port = 5000 
 app.use(bodyParser.json()) 
 
-app.post('/', (req, res) => {
+app.post('/raiseticket', (req, res) => {
   console.log(req.body)
 
   res.send({
