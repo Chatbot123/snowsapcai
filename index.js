@@ -135,47 +135,49 @@ app.post('/ticketstatus', (req, res) =>
 		{
 		
             		var result = JSON.parse(response.body);
-			if(result.length == 0)
+		if(result.records[0].length == 0)
 				speech = "Sorry given incident number does not exist. Please provide a valid number";
-			
-		assigned_to =  result.records[0].assigned_to;
-			//console.log(assigned_to);
-		number =  result.records[0].number;
-			//console.log(number);
-		state =  result.records[0].state;
-			//console.log(state);
-		sys_updated_by = result.records[0].sys_updated_by;
-		sys_updated_on = result.records[0].sys_updated_on;
-		short_description = result.records[0].short_description;
-		
-		
-		if(assigned_to=="")
+		else
 		{
-			assigned_to = "Nobody";
+			assigned_to =  result.records[0].assigned_to;
+				//console.log(assigned_to);
+			number =  result.records[0].number;
+				//console.log(number);
+			state =  result.records[0].state;
+				//console.log(state);
+			sys_updated_by = result.records[0].sys_updated_by;
+			sys_updated_on = result.records[0].sys_updated_on;
+			short_description = result.records[0].short_description;
+
+
+			if(assigned_to=="")
+			{
+				assigned_to = "Nobody";
+			}
+
+			switch(state){
+			    case '1':
+				dis_state = "New";
+				break;
+			    case '2':
+				dis_state = "In Progress";
+				break;
+			    case '3':
+				dis_state = "On Hold";
+				break;
+			    case '7':
+				dis_state = "Closed";
+				break;
+
+			}
+				console.log(dis_state);
+			speech = "Incident "+number+" is currently assigned to "+assigned_to+". Current status of  the incident is "+dis_state+" . This incident was last updated by "+sys_updated_by+" on "+sys_updated_on;
+			speech = speech + " The incident was raised for the issue "+short_description+"\r\n";
+
+			speech = speech+" Thanks for contacting us."
+				
 		}
-		
-		switch(state){
-		    case '1':
-			dis_state = "New";
-			break;
-		    case '2':
-			dis_state = "In Progress";
-			break;
-		    case '3':
-			dis_state = "On Hold";
-			break;
-		    case '7':
-			dis_state = "Closed";
-			break;
-		   
-		}
-			console.log(dis_state);
-		speech = "Incident "+number+" is currently assigned to "+assigned_to+". Current status of  the incident is "+dis_state+" . This incident was last updated by "+sys_updated_by+" on "+sys_updated_on;
-		speech = speech + " The incident was raised for the issue "+short_description+"\r\n";
-          			
-		speech = speech+" Thanks for contacting us."
-			console.log(speech);
-                      
+                     console.log(speech); 
 				//----------------------------------------------
 			var reply = [{
 				type: 'text',
