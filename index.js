@@ -165,9 +165,9 @@ app.post('/ticketstatus', (req, res) =>
 		short_description = result.records[0].short_description;
 		
 		
-		if(assigned_to==" ")
+		if(assigned_to=="")
 		{
-			assigned_to = "no one";
+			assigned_to = "Nobody";
 		}
 		
 		switch(state){
