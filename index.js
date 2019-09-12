@@ -35,8 +35,8 @@ app.post('/raiseticket', (req, res) =>
 		  {
 			var issue = req.body.nlp.entities.issue[0].raw;
 		  }
-		console.log(name);
-		console.log(issue);
+		//console.log(name);
+		//console.log(issue);
 		var instance = "dev75823";
 	//	var username = "admin";
 		//var password = "Ctli1234";
@@ -71,7 +71,7 @@ app.post('/raiseticket', (req, res) =>
             var result = JSON.parse(response.body);
             var count = Object.keys(result.results).length;
                       
-			console.log(result);
+			console.log(response);
           
 	    		 
 					
