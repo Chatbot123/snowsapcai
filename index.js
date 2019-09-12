@@ -185,10 +185,12 @@ app.post('/ticketstatus', (req, res) =>
 			break;
 		   
 		}
+			console.log(dis_state);
 		speech = "Incident "+number+" is currently assigned to "+assigned_to+". Current status of  the incident is "+dis_state+" . This incident was last updated by "+sys_updated_by+" on "+sys_updated_on;
 		speech = speech + " The incident was raised for the issue "+short_description+"\r\n";
           			
 		speech = speech+" Thanks for contacting us."
+			console.log(speech);
                       
 				//----------------------------------------------
 			var reply = [{
