@@ -151,15 +151,15 @@ app.post('/ticketstatus', (req, res) =>
 		{
 		
             var result = JSON.parse(response.body);
-		console.log(result);
+		//console.log(result);
 		//console.log(response);
 			//---
 			assigned_to =  result.records[0].assigned_to;
-			console.log(assigned_to);
+			//console.log(assigned_to);
 		number =  result.records[0].number;
-			console.log(number);
+			//console.log(number);
 		state =  result.records[0].state;
-			console.log(state);
+			//console.log(state);
 		sys_updated_by = result.records[0].sys_updated_by;
 		sys_updated_on = result.records[0].sys_updated_on;
 		short_description = result.records[0].short_description;
@@ -171,16 +171,16 @@ app.post('/ticketstatus', (req, res) =>
 		}*/
 		
 		switch(state){
-		    case 1:
+		    case '1':
 			dis_state = "New";
 			break;
-		    case 2:
+		    case '2':
 			dis_state = "In Progress";
 			break;
-		    case 3:
+		    case '3':
 			dis_state = "On Hold";
 			break;
-		    case 7:
+		    case '7':
 			dis_state = "Closed";
 			break;
 		   
