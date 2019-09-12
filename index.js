@@ -35,7 +35,8 @@ app.post('/raiseticket', (req, res) =>
 		  {
 			var issue = req.body.nlp.entities.issue[0].raw;
 		  }
-		
+		console.log(name);
+		console.log(issue);
 		var instance = "dev75823";
 	//	var username = "admin";
 		//var password = "Ctli1234";
@@ -43,10 +44,11 @@ app.post('/raiseticket', (req, res) =>
 		query = "https://"+instance+".service-now.com/"+table+".do?JSONv2&sysparm_action=insert";
 		  //-------------------------------------------------------------
 		  var distext = '';
-		  
+		  console.log(query);
 		
 		  
 		var myJSONObject = {'short_description' : issue };
+		console.log(myJSONObject);
 //----------------------------------------------------------------------------------------
 //executing servicenow query
 //--------------------------------------------------------------------------------------
