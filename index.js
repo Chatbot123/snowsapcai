@@ -151,7 +151,7 @@ app.post('/ticketstatus', (req, res) =>
 		{
 		
             var result = JSON.parse(response.body);
-		//console.log(result);
+		console.log(result);
 		//console.log(response);
 			//---
 			assigned_to =  result.records[0].assigned_to;
