@@ -82,7 +82,9 @@ app.post('/raiseticket', (req, res) =>
 						if(error.code && error.body) {
 							errorMessage += " - " + error.code + ": " + error.body
 						}
-						
+						console.log("Something went wrong with the call");
+						console.log(errorMessage);
+						console.log(error.body);
 						
 								
 		});
@@ -135,10 +137,9 @@ app.post('/ticketstatus', (req, res) =>
 		{
 		
             		var result = JSON.parse(response.body);
-		if(result.records[0].length == 0)
-				speech = "Sorry given incident number does not exist. Please provide a valid number";
-		else
-		{
+		
+		
+		
 			assigned_to =  result.records[0].assigned_to;
 				//console.log(assigned_to);
 			number =  result.records[0].number;
@@ -173,11 +174,9 @@ app.post('/ticketstatus', (req, res) =>
 				console.log(dis_state);
 			speech = "Incident "+number+" is currently assigned to "+assigned_to+". Current status of  the incident is "+dis_state+" . This incident was last updated by "+sys_updated_by+" on "+sys_updated_on;
 			speech = speech + " The incident was raised for the issue "+short_description+"\r\n";
-
 			speech = speech+" Thanks for contacting us."
 				
-		}
-                     console.log(speech); 
+		
 				//----------------------------------------------
 			var reply = [{
 				type: 'text',
@@ -196,17 +195,7 @@ app.post('/ticketstatus', (req, res) =>
 						console.log(errorMessage);
 						console.log(error.body);
 						
-						//Try to provide a proper error response
-						
-						var reply = [{
-							type: 'text',
-							content: "I'm sorry! Something went wrong with the call to the XSJS query. Try asking a different question."
-						}];
-
-						res.status(200).json({
-							replies: reply
-							
-						});			
+									
 		});
 			
 			
