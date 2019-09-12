@@ -17,12 +17,11 @@ app.use(bodyParser.json())
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`App is listening on port ${PORT}`));
 
-
+//code for creating servicenow incident
 app.post('/raiseticket', (req, res) => 
 {
 		  console.log(req.body);
-		  		  
-		  
+		  	  
 		  
 		  //chk for person name entity
 		  if(req.body.nlp.entities.hasOwnProperty('person'))
@@ -35,11 +34,8 @@ app.post('/raiseticket', (req, res) =>
 		  {
 			var issue = req.body.nlp.entities.issue[0].raw;
 		  }
-		//console.log(name);
-		//console.log(issue);
+		
 		var instance = "dev75823";
-	//	var username = "admin";
-		//var password = "Ctli1234";
 		var table = "incident";
 		query = "https://"+instance+".service-now.com/"+table+".do?JSONv2&sysparm_action=insert";
 		  //-------------------------------------------------------------
@@ -49,9 +45,9 @@ app.post('/raiseticket', (req, res) =>
 		  
 		var myJSONObject = {'short_description' : issue };
 		console.log(myJSONObject);
-//----------------------------------------------------------------------------------------
-//executing servicenow query
-//--------------------------------------------------------------------------------------
+		//----------------------------------------------------------------------------------------
+		//executing servicenow query
+		//--------------------------------------------------------------------------------------
 		requestify.request(query,
 		{
 				method: 'POST',
@@ -76,15 +72,121 @@ app.post('/raiseticket', (req, res) =>
 			
 		speech = speech+" Thanks for contacting us."
                       
-			console.log(result);
-          
-	    		 
-					
+				//----------------------------------------------
+			var reply = [{
+				type: 'text',
+				content: speech
+				}];
+
+			res.status(200).json({
+					replies: reply });
+		}, function(error) 
+		{
+						var errorMessage = "POST request failed";
+						if(error.code && error.body) {
+							errorMessage += " - " + error.code + ": " + error.body
+						}
+						console.log("Something went wrong with the call");
+						console.log(errorMessage);
+						console.log(error.body);
+						
+						//Try to provide a proper error response
+						
+						var reply = [{
+							type: 'text',
+							content: "I'm sorry! Something went wrong with the call to the XSJS query. Try asking a different question."
+						}];
+
+						res.status(200).json({
+							replies: reply
+							
+						});			
+		});
 			
 			
+});
+////code for creating servicenow incident ends here
+
+//code to get servicenow incident status
+
+app.post('/ticketstatus', (req, res) => 
+{
+		  console.log(req.body);
+		  	  
+		  
+		  //chk for person name entity
+		  if(req.body.nlp.entities.hasOwnProperty('ticketno'))
+		  {
+			var ticketno = req.body.nlp.entities.ticketno[0].raw;
+		  }
+		  //-------------------------------------------------------------
+		ticketno=ticketno.padStart(7, '0');
+		
+		var instance = "dev75823";
+		var table = "incident";
+		query = "https://"+instance+".service-now.com/"+table+".do?JSONv2&sysparm_action=getRecords&sysparm_query=numberENDSWITH"+ticketno;
+		  //-------------------------------------------------------------
+		  console.log(query);
+		
+		  
+		
+		console.log(myJSONObject);
+		//----------------------------------------------------------------------------------------
+		//executing servicenow query
+		//--------------------------------------------------------------------------------------
+		requestify.request(query,
+		{
+				method: 'GET',
+				headers : {
+					 	 'Content-Type': 'application/json'
+						
+					},
+				auth: {
+					username: 'admin',
+					password: 'Ctli1234'
+					},
+				
+				dataType: 'json'
+		}).then(function(response)
+		{
+		
+            var result = JSON.parse(response.body);
 			
-			
-			//----------------------------------------------
+			//---
+			assigned_to =  result.records[0].assigned_to;
+		number =  result.records[0].number;
+		state =  result.records[0].state;
+		sys_updated_by = result.records[0].sys_updated_by;
+		sys_updated_on = result.records[0].sys_updated_on;
+		short_description = result.records[0].short_description;
+		
+		
+		if(assigned_to=='')
+		{
+			assigned_to = 'no one';
+		}
+		
+		switch(state){
+		    case 1:
+			dis_state = "New";
+			break;
+		    case 2:
+			dis_state = "In Progress";
+			break;
+		    case 3:
+			dis_state = "On Hold";
+			break;
+		    case 7:
+			dis_state = "Closed";
+			break;
+		   
+		}
+		speech = "Incident "+number+" is currently assigned to "+assigned_to+". Current status of  the incident is "+dis_state+" . This incident was last updated by "+sys_updated_by+" on "+sys_updated_on;
+		speech = speech + " The incident was raised for the issue "+short_description+"\r\n";
+          			
+		speech = speech+" Thanks for contacting us."
+                      
+				//----------------------------------------------
 			var reply = [{
 				type: 'text',
 				content: speech
