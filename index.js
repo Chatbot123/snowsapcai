@@ -69,7 +69,12 @@ app.post('/raiseticket', (req, res) =>
 		{
 		
             var result = JSON.parse(response.body);
-            //var count = Object.keys(result.results).length;
+           	var incident_no =  result.records[0].number;
+		var sys_id = result.records[0]->sys_id;
+		var speech = "Thanks "+name+"! Incident Created Successfully for issue "+issue+" and your incident number is "+incident_no;
+		speech = speech+" Sys_id is "+sys_id+"\r\n";
+			
+		speech = speech+" Thanks for contacting us.
                       
 			console.log(result);
           
@@ -82,7 +87,7 @@ app.post('/raiseticket', (req, res) =>
 			//----------------------------------------------
 			var reply = [{
 				type: 'text',
-				content: 'result'
+				content: speech
 				}];
 
 			res.status(200).json({
