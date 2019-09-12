@@ -38,11 +38,7 @@ app.post('/raiseticket', (req, res) =>
 		var instance = "dev75823";
 		var table = "incident";
 		query = "https://"+instance+".service-now.com/"+table+".do?JSONv2&sysparm_action=insert";
-		  //-------------------------------------------------------------
-		  var distext = '';
-		  console.log(query);
-		
-		  
+		  	
 		var myJSONObject = {'short_description' : issue };
 		console.log(myJSONObject);
 		//----------------------------------------------------------------------------------------
@@ -86,21 +82,9 @@ app.post('/raiseticket', (req, res) =>
 						if(error.code && error.body) {
 							errorMessage += " - " + error.code + ": " + error.body
 						}
-						console.log("Something went wrong with the call");
-						console.log(errorMessage);
-						console.log(error.body);
 						
-						//Try to provide a proper error response
 						
-						var reply = [{
-							type: 'text',
-							content: "I'm sorry! Something went wrong with the call to the XSJS query. Try asking a different question."
-						}];
-
-						res.status(200).json({
-							replies: reply
-							
-						});			
+								
 		});
 			
 			
@@ -149,9 +133,8 @@ app.post('/ticketstatus', (req, res) =>
 				dataType: 'json'
 		}).then(function(response)
 		{
-		console.log(response);
-            var result = JSON.parse(response.body);
-			console.log(result);
+		
+            		var result = JSON.parse(response.body);
 			if(result.length == 0)
 				speech = "Sorry given incident number does not exist. Please provide a valid number";
 			
