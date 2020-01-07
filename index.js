@@ -35,7 +35,7 @@ app.post('/raiseticket', (req, res) =>
 			var issue = req.body.nlp.entities.issue[0].raw;
 		  }
 		
-		var instance = "dev75823";
+		var instance = "dev93982";
 		var table = "incident";
 		query = "https://"+instance+".service-now.com/"+table+".do?JSONv2&sysparm_action=insert";
 		  	
@@ -53,7 +53,7 @@ app.post('/raiseticket', (req, res) =>
 					},
 				auth: {
 					username: 'admin',
-					password: 'Ctli1234'
+					password: 'Ctli@234'
 					},
 				body : myJSONObject,
 				dataType: 'json'
@@ -108,7 +108,7 @@ app.post('/ticketstatus', (req, res) =>
 		  //-------------------------------------------------------------
 		ticketno=ticketno.padStart(7, '0');
 		
-		var instance = "dev75823";
+		var instance = "dev93982";
 		var table = "incident";
 		query = "https://"+instance+".service-now.com/"+table+".do?JSONv2&sysparm_action=getRecords&sysparm_query=numberENDSWITH"+ticketno;
 		  //-------------------------------------------------------------
@@ -129,7 +129,7 @@ app.post('/ticketstatus', (req, res) =>
 					},
 				auth: {
 					username: 'admin',
-					password: 'Ctli1234'
+					password: 'Ctli@234'
 					},
 				
 				dataType: 'json'
