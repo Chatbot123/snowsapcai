@@ -26,7 +26,7 @@ app.post('/raiseticket', (req, res) =>
 		  //chk for person name entity
 		  if(req.body.nlp.entities.hasOwnProperty('person'))
 		  {
-			var name = req.body.nlp.entities.person[0].raw;
+			var name = req.body.nlp.entities.name[0].raw;
 		  }
 		  //-------------------------------------------------------------
 		  //chk for issue value entity
